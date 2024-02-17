@@ -1,0 +1,81 @@
+:root{
+    --lighter-background: #d6e7f0;
+    --light-background: #B4DAED;
+    --soft-background: #ffffff;
+    --hard-background: #b4f0e6;
+    --dark-background: #0F163F;
+}
+
+body {
+    margin: 0;
+    padding-left: 10%;
+    padding-right: 10%;
+    align-content: center;
+}
+
+/* Nav bar styling*/
+
+.navigation-box{
+    display: flex;
+    flex-direction: row;
+    height: 3rem;
+    justify-content: space-between;
+    background-color: var(--lighter-background);
+    border-radius: 2rem;
+    
+}
+.navigation-box.month-name{
+    align-self: center;
+
+}
+
+.navigation-button{
+    color: var(--dark-background);
+    min-width: 3rem;
+    background-color: var(--light-background);
+    border-width: 0;
+    border-radius: 2rem;
+}
+
+/* Grid styling*/
+.grid-container {
+    display                 : grid;
+    grid-template-columns   : repeat(7, 2fr);
+    align-content           : center;
+}
+
+.grid-item {
+    background-color: transparent;
+    border: 0;
+    border-radius: 3rem;
+}
+.grid-item:hover{
+    background-color: var(--light-background);
+    transition: 0.2s;
+
+}
+.grid-item.title {
+    font-weight: bold;
+    align-self: center;
+    background-color: var(--soft-background);
+
+}
+
+
+.even-row{
+    background-color: var(--soft-background);
+}
+
+.odd-row{
+    background-color: var(--hard-background);
+}
+
+.current-month{
+    color: #0D332D;
+    font-weight: bold;
+}
+
+.non-current-month{
+    color: #749A94;
+    font-weight: 300;
+}
