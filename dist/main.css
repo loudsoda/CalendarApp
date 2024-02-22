@@ -2,7 +2,7 @@
     --lighter-background: #d6e7f0;
     --light-background: #B4DAED;
     --soft-background: #ffffff;
-    --hard-background: #b4f0e6;
+    --hard-background: #92b9b2;
     --dark-background: #0F163F;
     --selected-background: #ddb503;
 }
@@ -48,7 +48,8 @@ body {
 .grid-item {
     background-color: transparent;
     border: 0;
-    border-radius: 3rem;
+    min-width: 2.5rem;
+    border-radius: 10%;
     justify-self: center;
     font-size: large;
 
@@ -68,9 +69,8 @@ body {
 
 .grid-item.current-day {
     color: rgb(255, 255, 255);
-    background-color: var(--selected-background);
+    background-color: var(--hard-background);
     border: 0;
-    border-radius: 3rem;
     justify-self: center;
 }
 
@@ -83,7 +83,6 @@ body {
 .grid-item.past-day {
     color: rgb(124, 124, 124);
     border: 0;
-    border-radius: 3rem;
     justify-self: center;
 }
 
