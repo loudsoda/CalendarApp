@@ -18,7 +18,7 @@ window.onload = function () {
 
 ;
 
-    function updateMonthElement(month_index){
+    function updateMonthElement(year, month_index){
         // Upddate the month element
         
         month_codes = {
@@ -38,28 +38,31 @@ window.onload = function () {
 
         const month_name            = month_codes[month_index];
         const month_element         = document.getElementById("month_name_display");
-        month_element.textContent   = month_name;
+        month_element.textContent   = month_name + " " +year;
 
         return month_index;
 
     }
 
 
-    function caclulatePreviousMonthLastDay(current_month){
+    function caclulatePreviousMonthLastDay(year, month){
         // Calculate what the last day of the previous month was
         
-        let previous_month = current_month - 1;
+        let previous_month = month - 1;
 
         // if the month is january, set the previous month to december
-        if (current_month == 0){
+        if (month == 0){
             previous_month = 11;
+            year -=1;
         }
 
         else{
-            previous_month  = current_month - 1;
+            previous_month  = month - 1;
         }
 
-        return new Date(current_year_now, previous_month, 0).getDate();
+        console.log(year)
+        return new Date(year, previous_month+1, 0).getDate();
+        
     
 
     }
@@ -88,9 +91,11 @@ window.onload = function () {
     function populateDisplayMonth(display_year, display_month){
         
         // Get Month information and update month name element
-        let current_month           = updateMonthElement(display_month);
+        let current_month           = updateMonthElement(display_year, display_month);
+        console.log(current_month);
         
-        let previous_month_last_day = caclulatePreviousMonthLastDay(current_month);
+        let previous_month_last_day = caclulatePreviousMonthLastDay(display_year, current_month);
+        
         let next_month              = caclulateNextMonth(current_month);
         
         // Get first and last day for populating dates
@@ -105,7 +110,15 @@ window.onload = function () {
         let calendar_code = String(week_count) + String(day_date);
         let is_display_and_now = year_month_now == year_month_display;
 
-        console.log(calendar_code);
+
+        for (let day = day_date-1; day >= 0; day--){
+            calendar_code           = String(0) + String(day);
+            let element             = document.getElementById(calendar_code);
+            element.textContent     = String(previous_month_last_day);
+            element.classList.add("past-day")
+            element.classList.add("non-current-month");
+            previous_month_last_day -= 1;
+        }
 
         // Begin populating the calandar starting with the first day of the month
         // Populate current month's information
@@ -120,7 +133,7 @@ window.onload = function () {
             
             // update day elements
             calendar_code = String(week_count) + String(day_date);
-            let element       = document.getElementById(calendar_code)
+            let element       = document.getElementById(calendar_code);
 
             // Clean out css classes when the month is changed  
             element.className = "";  
@@ -131,12 +144,11 @@ window.onload = function () {
                        // Remove all classes
             element.classList.add("grid-item"); 
 
-            // Added date to the current mont class
-            element.classList.add("current-month");
-
             // Designate the current day
         
             if (is_display_and_now){
+                            // Added date to the current mont class
+            element.classList.add("current-month");
                 if(day == current_day_now){
                     element.classList.add("current-day");
                 }
@@ -162,7 +174,6 @@ window.onload = function () {
         for(let week = calendar_code[0]; week < 6; week ++){
             
             for(let day = next_month_day_start; day < 7; day++){
-                console.log(day);
                 element = document.getElementById(String(week) + String(day))
                 element.textContent = next_month_day
                 element.classList.add("non-current-month");
@@ -170,44 +181,16 @@ window.onload = function () {
             }
             next_month_day_start = 0
         }
-    
-        /*
-        // Update the previous and next month's days
-        const day_container = document.getElementById("day-container");
-        const day_con_elements = day_container.querySelectorAll("*");
-        
-        // Last month
-        for(let i = day_con_elements.length - 1; i >=0; i--){
-            if (day_con_elements[i].textContent == "x" && day_con_elements[i].id[0].includes("0")){
-    
-                day_con_elements[i].textContent = previous_month_last_day
-                day_con_elements[i].classList.add("non-current-month");
-                previous_month_last_day -= 1
-            }
-        }
-        
-        let next_month_day = 1
-        for(let i in day_con_elements){
-            let element = day_con_elements[i]
-            if (element.textContent == "x"){
-                element.textContent = next_month_day
-                element.classList.add("non-current-month");
-                next_month_day += 1
-            }
-            
-        }
-        */
     }
 
     // Get Month information and update month name element
-    let current_month           = updateMonthElement(current_day.getMonth());
+    let current_month           = updateMonthElement(current_year_now, current_day.getMonth());
 
     populateDisplayMonth(current_year_now, current_month)
     //---------------------------
     // Buttons
     //---------------------------
     let back_btn = document.getElementById("back-btn");
-
     back_btn.addEventListener("click", function(){
         
         current_month -= 1;
@@ -219,5 +202,17 @@ window.onload = function () {
         populateDisplayMonth(current_year_now, current_month);
     })
 
+
+    let next_btn = document.getElementById("next-btn");
+    next_btn.addEventListener("click", function(){
+        
+        current_month += 1;
+
+        if (current_month == 11){
+            current_month = 0;
+            current_year_now += 1;
+        }
+        populateDisplayMonth(current_year_now, current_month);
+    })
 
 };

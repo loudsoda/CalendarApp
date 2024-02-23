@@ -6,12 +6,26 @@
     --dark-background: #0F163F;
     --selected-background: #ddb503;
 }
+html {
+    height: 100%;
+}
 
 body {
+    font-family: 'Roboto';
+    font-size: large;
     margin: 0;
     padding-left: 10%;
     padding-right: 10%;
     align-content: center;
+
+    background-repeat: no-repeat;
+    background: linear-gradient(var(--soft-background), var(--hard-background));
+}
+
+.title{
+    font-size: x-large;
+    font-weight: bolder;
+    margin: 1%;
 }
 
 /* Nav bar styling*/
@@ -51,7 +65,8 @@ body {
     min-width: 2.5rem;
     border-radius: 10%;
     justify-self: center;
-    font-size: large;
+    font-family: 'Roboto';
+    font-size: x-large;
 
 }
 
@@ -63,12 +78,12 @@ body {
 .grid-item.title {
     font-weight: bold;
     align-self: center;
-    background-color: var(--soft-background);
+
 
 }
 
 .grid-item.current-day {
-    color: rgb(255, 255, 255);
+    color: var(--dark-background);
     background-color: var(--hard-background);
     border: 0;
     justify-self: center;
